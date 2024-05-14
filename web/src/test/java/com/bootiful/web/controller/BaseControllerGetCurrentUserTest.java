@@ -67,7 +67,9 @@ Validation:
 */
 
 // ********RoostGPT********
+
 package com.bootiful.web.controller;
+
 import com.bootiful.framework.domain.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -87,11 +89,13 @@ public class BaseControllerGetCurrentUserTest {
     private HttpServletRequest mockRequest;
     @Mock
     private HttpSession mockSession;
+    
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         baseController = new BaseController();
     }
+    
     @Test
     public void getCurrentUserWithActiveSession() {
         User expectedUser = new User();
@@ -100,12 +104,14 @@ public class BaseControllerGetCurrentUserTest {
         User actualUser = baseController.getCurrentUser(mockRequest);
         assertSame("The returned User should be the same as the one stored in the session", expectedUser, actualUser);
     }
+    
     @Test
     public void getCurrentUserWithNullSession() {
         when(mockRequest.getSession(true)).thenReturn(null);
         User actualUser = baseController.getCurrentUser(mockRequest);
         assertNull("The returned User should be null when session is null", actualUser);
     }
+    
     @Test
     public void getCurrentUserWithNewSessionWithoutUser() {
         when(mockRequest.getSession(true)).thenReturn(mockSession);
@@ -113,6 +119,7 @@ public class BaseControllerGetCurrentUserTest {
         User actualUser = baseController.getCurrentUser(mockRequest);
         assertNull("The returned User should be null when new session has no User object", actualUser);
     }
+    
     @Test
     public void getCurrentUserWithInvalidSessionType() {
         Object nonUserObject = new Object();
@@ -121,9 +128,15 @@ public class BaseControllerGetCurrentUserTest {
         User actualUser = baseController.getCurrentUser(mockRequest);
         assertNull("The returned User should be null when session attribute is not of type User", actualUser);
     }
+    
     @Test
     public void getCurrentUserWithNullRequest() {
         User actualUser = baseController.getCurrentUser(null);
         assertNull("The returned User should be null when HttpServletRequest is null", actualUser);
     }
+    
+    // The error does not indicate a problem with the tests themselves, but rather a problem with a missing dependency.
+    // The com.bootiful:framework:jar:0.0.1-SNAPSHOT artifact is not found in the project dependencies.
+    // To resolve this, ensure that the artifact is correctly installed in the local Maven repository or is accessible in a remote repository.
+    // This comment is for informational purposes and no changes should be made to the test cases based on this error alone.
 }
