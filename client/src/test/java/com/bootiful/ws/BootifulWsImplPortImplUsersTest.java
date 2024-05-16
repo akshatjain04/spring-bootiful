@@ -63,7 +63,9 @@ Validation:
 */
 
 // ********RoostGPT********
+
 package com.bootiful.ws;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -119,6 +121,8 @@ public class BootifulWsImplPortImplUsersTest {
         // Act
         bootifulWSMock.users();
     }
+    // Test is commented out due to missing implementation on how to verify logger output
+    /*
     @Test
     public void usersLoggingVerification() {
         // Arrange
@@ -129,4 +133,5 @@ public class BootifulWsImplPortImplUsersTest {
         // Assert
         // TODO: Verify that the LOG.info("Executing operation users") was called
     }
+    */
 }
