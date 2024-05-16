@@ -79,7 +79,9 @@ Validation:
 */
 
 // ********RoostGPT********
+
 package com.bootiful.interceptor;
+
 import org.apache.cxf.binding.soap.Soap11;
 import org.apache.cxf.binding.soap.SoapFault;
 import org.apache.cxf.binding.soap.SoapMessage;
@@ -92,21 +94,6 @@ import org.springframework.core.env.Environment;
 import java.util.Collections;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
-import org.apache.cxf.binding.soap.Soap12;
-import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
-import org.apache.cxf.binding.soap.interceptor.EndpointSelectionInterceptor;
-import org.apache.cxf.binding.soap.interceptor.ReadHeadersInterceptor;
-import org.apache.cxf.headers.Header;
-import org.apache.cxf.helpers.CastUtils;
-import org.apache.cxf.interceptor.Fault;
-import org.apache.cxf.phase.Phase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import javax.xml.namespace.QName;
-import java.util.List;
-import java.util.Map;
 
 public class WsInterceptorHandleMessageTest {
     private WsInterceptor wsInterceptor;
@@ -114,12 +101,14 @@ public class WsInterceptorHandleMessageTest {
     private SoapMessage soapMessage;
     @Mock
     private Environment environment;
+    
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         wsInterceptor = new WsInterceptor();
         wsInterceptor.environment = environment;
     }
+    
     @Test
     public void handleMessageWithSoap11AndValidAction() {
         when(soapMessage.getVersion()).thenReturn(Soap11.getInstance());
@@ -129,12 +118,14 @@ public class WsInterceptorHandleMessageTest {
         wsInterceptor.handleMessage(soapMessage);
         // No exception is expected to be thrown
     }
+    
     @Test(expected = SoapFault.class)
     public void handleMessageWithSoap11AndMissingAction() {
         when(soapMessage.getVersion()).thenReturn(Soap11.getInstance());
         wsInterceptor.handleMessage(soapMessage);
         // Expecting a SoapFault to be thrown
     }
+    
     @Test(expected = SoapFault.class)
     public void handleMessageWithSoap11AndInvalidCredentials() {
         when(soapMessage.getVersion()).thenReturn(Soap11.getInstance());
@@ -146,6 +137,7 @@ public class WsInterceptorHandleMessageTest {
         wsInterceptor.handleMessage(soapMessage);
         // Expecting a SoapFault to be thrown
     }
+    
     @Test(expected = SoapFault.class)
     public void handleMessageWithSoap11AndMissingCredentials() {
         when(soapMessage.getVersion()).thenReturn(Soap11.getInstance());
@@ -153,10 +145,14 @@ public class WsInterceptorHandleMessageTest {
         wsInterceptor.handleMessage(soapMessage);
         // Expecting a SoapFault to be thrown
     }
-    @Test
+    
+    // Commented out due to undefined behavior for Soap12 in the handleMessage method
+    // TODO: Implement a test for Soap12 once the behavior is defined in the handleMessage method
+    /* @Test
     public void handleMessageWithSoap12AndNoAction() {
-        // TODO: Implement a test for Soap12 once the behavior is defined in the handleMessage method
-    }
+        
+    } */
+    
     @Test(expected = SoapFault.class)
     public void handleMessageWithSoap11AndEnvironmentException() throws Exception {
         when(soapMessage.getVersion()).thenReturn(Soap11.getInstance());
@@ -167,3 +163,11 @@ public class WsInterceptorHandleMessageTest {
         // Expecting a SoapFault to be thrown
     }
 }
+
+/* An explanatory comment regarding the error:
+[ERROR] Failed to execute goal on project jax-ws: Could not resolve dependencies for project com.bootiful:jax-ws:war:0.0.1-SNAPSHOT: 
+The following artifacts could not be resolved: com.bootiful:framework:jar:0.0.1-SNAPSHOT (absent): Could not find artifact com.bootiful:framework:jar:0.0.1-SNAPSHOT -> [Help 1]
+
+The error indicates a Maven dependency resolution problem. The artifact 'com.bootiful:framework:jar:0.0.1-SNAPSHOT' could not be found in the local or remote repositories. 
+To resolve this error, ensure that the artifact is correctly published to the Maven repository you are using, or update the project's pom.xml to point to the correct version of the artifact that is available.
+*/
