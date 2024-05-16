@@ -63,7 +63,9 @@ Validation:
 */
 
 // ********RoostGPT********
+
 package com.bootiful.ws;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -90,6 +92,7 @@ public class BootifulWsImplPortImplUsersTest {
     public void setUp() {
         // TODO: Set up any common configurations or mock behaviors if necessary
     }
+
     @Test
     public void usersRetrievalSuccess() {
         // Arrange
@@ -102,6 +105,7 @@ public class BootifulWsImplPortImplUsersTest {
         // Assert
         assertEquals("The returned list of users should match the expected list.", expectedUsers, actualUsers);
     }
+
     @Test
     public void usersListEmpty() {
         // Arrange
@@ -112,6 +116,7 @@ public class BootifulWsImplPortImplUsersTest {
         assertNotNull("The returned list should not be null.", actualUsers);
         assertTrue("The returned list should be empty.", actualUsers.isEmpty());
     }
+
     @Test(expected = RuntimeException.class)
     public void usersExceptionHandling() {
         // Arrange
@@ -119,14 +124,17 @@ public class BootifulWsImplPortImplUsersTest {
         // Act
         bootifulWSMock.users();
     }
-    @Test
-    public void usersLoggingVerification() {
-        // Arrange
-        List<User> expectedUsers = new ArrayList<>();
-        when(bootifulWSMock.users()).thenReturn(expectedUsers);
-        // Act
-        bootifulWSMock.users();
-        // Assert
-        // TODO: Verify that the LOG.info("Executing operation users") was called
-    }
+
+    // The test below is commented out due to missing implementation of logging verification.
+    // To enable this test, we need to implement the logic to capture and verify logs.
+    // @Test
+    // public void usersLoggingVerification() {
+    //     // Arrange
+    //     List<User> expectedUsers = new ArrayList<>();
+    //     when(bootifulWSMock.users()).thenReturn(expectedUsers);
+    //     // Act
+    //     bootifulWSMock.users();
+    //     // Assert
+    //     // TODO: Verify that the LOG.info("Executing operation users") was called
+    // }
 }
