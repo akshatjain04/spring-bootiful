@@ -63,6 +63,7 @@ Validation:
 */
 
 // ********RoostGPT********
+
 package com.bootiful.ws;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -107,6 +108,12 @@ public class BootifulWsImplPortImplUsersTest {
         when(mockService.users()).thenThrow(new RuntimeException());
         mockService.users();
     }
+    // Error indicates a problem with the CXF plugin or generation of sources from WSDL
+    // This does not impact the test code directly but affects the build process.
+    // The tests themselves do not need to be commented out, but the build issue must be resolved
+    // to successfully run the tests.
+    // Potential resolution: Ensure that the CXF codegen-plugin is correctly configured and that
+    // all necessary modules and exports are declared for the JDK being used.
     @Test
     public void usersLoggingVerification() {
         LOG.info("Executing operation users");
